@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+    <title>Document</title>
+
+</head>
+
+<body>
+    <h1> CALCULADORA IMC</h1>
+    <div class="container">
+        <br>
+        <div class="first-step" id="first-step">
+            <p>Clique no botão para começar</p>
+            <button onclick="go(1,2)" id="button">INICIAR</button>
+
+        </div>
+
+        <div class="second-step">
+            <br>
+            <label for="altura">Altura:</label>
+            <input type="number" placeholder="Sua altura" id="altura" />
+
+
+            <label for="peso">Peso:</label>
+            <input type="number" placeholder="Seu peso" id="peso" />
+            <br><br>
+            <hr>
+            <button id="button" onclick="validate()">CALCULAR</button>
+        </div>
+
+        <div class="final-step">
+            <h3>Resultado!</h3>
+            <p id="resultado"></p>
+            <button id="button" onclick="go(3,2)">Calcular Novamente</button>
+            <button id="button" onclick="go(3,1)">Finalizar</button>
+
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    const firstDiv = document.querySelector('.first-step');
+
+    const secondDiv = document.querySelector('.second-step');
+
+    const finalDiv = document.querySelector('.final-step');
+
+    function go(currentStep, nextStep) {
+        let dNone, dBlock;
+        if (currentStep == 1) {
+            dNone = firstDiv;
+        } else if (currentStep == 2) {
+            dNone = secondDiv;
+        } else if (currentStep == 3) {
+            dNone = finalDiv;
+        }
+        dNone.style.display = 'none';
+
+        if (nextStep == 1) {
+            dBlock = firstDiv;
+        } else if (nextStep == 2) {
+            dBlock = secondDiv;
+        } else {
+            dBlock = finalDiv;
+        }
+
+        dBlock.style.display = 'block';
+
+    }
+
+    function validate() {
+        const peso = document.getElementById('peso');
+        const altura = document.getElementById('altura');
+        peso.style.border = "none";
+        altura.style.border = "none";
+
+        if (!peso.value && !altura.value) {
+
+            peso.style.border = "1px solid red";
+            altura.style.border = "1px solid red";
+        } else if (!peso.value) {
+            peso.style.border = "1px solid red";
+        } else if (!altura.value) {
+            altura.style.border = "1px solid red";
+        } else {
+            let imc = peso.value / altura.value ** 2;
+            const result = document.getElementById('resultado');
+            console.log(imc.toFixed(2));
+            result.innerHTML = 'O calculo do seu IMC é ' + imc.toFixed(2);
+            go(2, 3)
+        }
+    }
+</script>
+
+</html>
